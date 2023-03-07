@@ -63,7 +63,7 @@ Here's what you can find:
 - [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [Firebase](https://firebase.google.com/docs)
-
+- [Material UI](https://mui.com/)
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -101,4 +101,5 @@ To get a local copy up and running follow these simple example steps.
 ## Contact
 
 Eduardo Morales - [@emSWE](https://www.linkedin.com/in/emSWE/) - emoral435@gmail.com
+<br/>
 I like to make fun things, and then break them
