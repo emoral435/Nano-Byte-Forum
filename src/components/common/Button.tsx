@@ -4,11 +4,12 @@ import Button from '@mui/material/Button'
 
 
 interface btnProps {
-    text: string
+    text: string,
+    handleClick(): any,
 }
-const BasicButton = ({text}: btnProps) => {
+const BasicButton = ({text, handleClick}: btnProps) => {
   return (
-    <Button color='primary' size='large' variant='contained'>{text}</ Button>
+    <Button color='primary' size='large' variant='contained' onClick={handleClick} >{text}</ Button>
   )
 }
 

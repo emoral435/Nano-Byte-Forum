@@ -5,7 +5,14 @@ import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } fr
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import BasicButton from './Button';
 
-const TextFields = () => {
+interface FormProps {
+  title: string,
+  handleForm(): any,
+  setEmail(value: string): any,
+  setPassword(value: string): any
+}
+
+const Form = ({title, handleForm, setEmail, setPassword} : FormProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -22,9 +29,9 @@ const TextFields = () => {
             noValidate
             autoComplete="off">
         <div className='flex flex-col items-center gap-4'>
-            <h3 className='text-2xl'>Login Form</h3>
-            <TextField id='email' label='Enter Email' variant='outlined' sx={{ width: '25ch' }}/>
-            <FormControl sx={{ width: '25ch' }} variant="outlined">
+            <h3 className='text-2xl'>{title} Form</h3>
+            <TextField id='email' label='Enter Email' variant='outlined' sx={{ width: '25ch' }} color='secondary' onChange={(e) => setEmail(e.target.value)}/>
+            <FormControl sx={{ width: '25ch' }} variant="outlined" color='secondary'>
               <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -42,12 +49,13 @@ const TextFields = () => {
                   </InputAdornment>
                 }
                 label="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
-            <BasicButton text='login' />
+            <BasicButton text={title} handleClick={handleForm}/>
         </div>
     </Box>
   )
 }
 
-export default TextFields
+export default Form

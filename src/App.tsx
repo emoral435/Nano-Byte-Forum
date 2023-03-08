@@ -1,12 +1,18 @@
-import TextFields from "./components/common/Form"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Login from "./Login/Login"
+import Register from "./components/Register/Register"
+
 
 function App() {
 
   return (
-    <div className="App">
-      <TextFields />
-      <h1 className='font-bold underline text-3xl'>This is vite, with react and tailwind as the frontend and firebase as the backend. Redux as a nifty library and framer motion to hopefully make this look pretty, along with material UI</h1>
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<div>this is the homepage</div>} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+        </Routes>
+    </BrowserRouter>
   )
 }
 
