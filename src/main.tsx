@@ -5,12 +5,12 @@ import './index.css'
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { red, blueGrey } from '@mui/material/colors';
+import { blue, blueGrey } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: red[500],
+      main: blue[800],
     },
     secondary: {
       main: blueGrey[500],

@@ -64,6 +64,7 @@ Here's what you can find:
 - [React](https://reactjs.org/)
 - [Firebase](https://firebase.google.com/docs)
 - [Material UI](https://mui.com/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 <!-- GETTING STARTED -->
 
 ## Getting Started
