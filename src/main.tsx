@@ -10,18 +10,21 @@ import { red, blueGrey } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: red[500],
-    },
-    secondary: {
       main: blueGrey[500],
     },
+    secondary: {
+      main: red[500],
+    },
+    info: {
+      main: '#ffffff'
+    }
   },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <ThemeProvider theme={theme}> */}
+    <ThemeProvider theme={theme}>
       <App />
-    {/* </ThemeProvider> */}
+    </ThemeProvider>
   </React.StrictMode>,
 )
