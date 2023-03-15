@@ -9,7 +9,7 @@ interface btnProps {
 }
 const BasicButton = ({text, handleClick}: btnProps) => {
   return (
-    <Button color='primary' size='large' variant='contained' onClick={handleClick} >{text}</ Button>
+    <Button color='primary' size='large' variant='contained' onClick={handleClick} className="whitespace-nowrap" >{text}</ Button>
   )
 }
 
