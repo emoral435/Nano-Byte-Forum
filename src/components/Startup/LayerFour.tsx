@@ -8,7 +8,7 @@ import NanoImg from '/src/assets/Nano-logo-dark.svg'
 
 export const LayerFour = () => {
     return (
-        <div className='w-full bg-[#f5f5f5] h-28 flex flex-col md:flex-row md:justify-center md:items-center md:gap-6 m-4'>
+        <div className='h-28 flex flex-col md:flex-row md:justify-center md:items-center md:gap-6'>
             <div className='flex flex-col gap-6 items-center justify-center'>
                     <div className="flex justify-center gap-6">
                         <motion.a whileHover={{ scale: 1.2, rotate: 360, transition: {duration: .7, delay: .1}}} exit={{transition: {ease: easeInOut}}} href="https://github.com/emoral435" target={'_blank'}>

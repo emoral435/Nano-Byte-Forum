@@ -7,12 +7,14 @@ import BasicButton from './Button';
 
 interface FormProps {
   title: string,
+  sideTitle: string,
   handleForm(): any,
+  handleSide(): any,
   setEmail(value: string): any,
   setPassword(value: string): any
 }
 
-const Form = ({title, handleForm, setEmail, setPassword} : FormProps) => {
+const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} : FormProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -24,14 +26,14 @@ const Form = ({title, handleForm, setEmail, setPassword} : FormProps) => {
   return (
     <Box component="form"
             sx={{
-                '& > :not(style)': { m: 1, width: '25ch' },
+                '& > :not(style)': { m: 1, width: '100%' },
             }}
             noValidate
             autoComplete="off">
-        <div className='flex flex-col items-center gap-4'>
-            <h3 className='text-2xl'>{title} Form</h3>
-            <TextField id='email' label='Enter Email' variant='outlined' sx={{ width: '25ch' }} color='secondary' onChange={(e) => setEmail(e.target.value)}/>
-            <FormControl sx={{ width: '25ch' }} variant="outlined" color='secondary'>
+        <div className='flex flex-col items-start gap-6'>
+            <h3 className='text-2xl text-[#5c5c5c] w-full flex justify-start'>{title} Form</h3>
+            <TextField id='email' label='Email' variant='outlined' sx={{ width: '50ch' }} color='secondary' onChange={(e) => setEmail(e.target.value)} />
+            <FormControl sx={{ width: '50ch' }} variant="outlined" color='secondary'>
               <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -52,7 +54,10 @@ const Form = ({title, handleForm, setEmail, setPassword} : FormProps) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
-            <BasicButton text={title} handleClick={handleForm}/>
+            <div className='flex justify-start w-full gap-4'>
+              <BasicButton text={title} handleClick={handleForm}/>
+              <BasicButton text={sideTitle} handleClick={handleSide}/>
+            </div>
         </div>
     </Box>
   )

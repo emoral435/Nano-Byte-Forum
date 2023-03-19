@@ -17,7 +17,9 @@ const Startup = () => {
         <LayerOne />
         <LayerTwo />
         <LayerThree />
-        <LayerFour />
+        <div className='w-full h-full bg-[#f5f5f5] p-4'>
+          <LayerFour />
+        </div>
     </div>
   )
 }
