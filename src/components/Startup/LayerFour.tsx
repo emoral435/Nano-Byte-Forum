@@ -33,7 +33,7 @@ export const LayerFour = () => {
                         <div className='flex justify-center items-center'>
                             <CopyrightIcon color='primary' sx={{ fontSize: 15}} />
                         </div>
-                        <h4 className='text-[#5c5c5c] select-none'>Nano Byte Media Coorporation 2023</h4>
+                        <h4 className='text-[#5c5c5c] select-none md:text-lg text-xs'>Nano Byte Media Coorporation 2023</h4>
                     </div>
             </div>
         </div>

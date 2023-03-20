@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#continue-with::before,
+#continue-with::after {
+    background: #5c5c5c;
+    height: 2px;
+    flex: 1;
+    content: '';
+}
+
