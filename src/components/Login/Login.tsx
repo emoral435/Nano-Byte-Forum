@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { app } from '../../firebase/firebase-config'
 import { LayerFour } from '../Startup/LayerFour'
+import user from '/src/assets/loginUser.svg'
+import bg from '/src/assets/loginBackground.svg'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -26,16 +28,23 @@ const Login = () => {
     }
 
   return (
-    <div className='w-full h-full flex md:flex-row flex-col'>
-      <div className='basis-1/2'>
-        {/* <img src={background} alt="background building" className='' /> */}
+    <div className='w-full h-full flex md:flex-row flex-col-reverse items-center '>
+      <div className='w-[35rem] xl:flex hidden bg-[#3f3d56] h-[100vh] items-center' >
+        <img src={bg} alt="login background" className=''/>
       </div>
-      <div className='w-full h-[100vh] bg-[#ebf3f9] flex justify-start items-center'>
-        <div className='flex flex-col  shadow-xl p-12 ml-20 bg-white'>
-          <h1 className='text-7xl text-[#333333] mb-6' >Welcome Back.</h1>
-          <Form title='Login' sideTitle='Sign Up' setEmail={setEmail} setPassword={setPassword} handleForm={login} handleSide={signUp}/>
+      <div className='w-full h-[100vh] bg-[#ebf3f9] flex flex-col justify-center items-center lg:items-start'>
+        <div className='flex flex-col shadow-xl p-12 lg:ml-10 xl:ml-20 bg-white gap-20'>
+          <div className='flex md:flex-row flex-col-reverse gap-8'>
+            <div>
+              <h1 className='text-7xl text-[#333333] mb-6' >Welcome Back.</h1>
+              <Form title='Login' sideTitle='Sign Up' setEmail={setEmail} setPassword={setPassword} handleForm={login} handleSide={signUp}/>
+            </div>
+            <img src={user} alt="login user" className='md:h-full h-[10rem]' />
+          </div>
+          <div className='flex justify-center'>
+            <LayerFour />
+          </div>
         </div>
-        <LayerFour />
       </div>
     </div>
   )
