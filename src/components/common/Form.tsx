@@ -1,13 +1,16 @@
-import React from 'react'
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import BasicButton from './Button';
-import { getAuth, signInAnonymously } from 'firebase/auth'
+import { getAuth, signInAnonymously, sendPasswordResetEmail } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../firebase/firebase-config';
 import OffSiteAuths from './offSiteAuths';
+import { easeInOut, motion } from 'framer-motion';
+import Button from '@mui/material/Button'
+import { ToastContainer, toast } from 'react-toastify'
 
 interface FormProps {
   title: string,
@@ -19,7 +22,8 @@ interface FormProps {
 }
 
 const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} : FormProps) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState('')
   const navigate = useNavigate()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -42,6 +46,38 @@ const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} 
       })
   }
 
+  const handleForgot = () => {
+    const auth = getAuth(app)
+    sendPasswordResetEmail(auth, resetEmail)
+      .then(() => {
+        console.log('hooray, email got sent')
+      }).catch((err) => {
+        console.log(err.code)
+        switch (err.code) {
+          case 'auth/invalid-email':
+              toast.error('That email is invalid. Try again')
+              break
+          case 'auth/missing-email':
+              toast.error('Email input is empty. Try again')
+              break
+          case 'auth/user-not-found':
+              toast.error('Email not linked with an account. Try again')
+              break
+        }
+      })
+  }
+
+  const clickedForC = () => {
+    const container = document.getElementById('reset')
+    const forgot = document.getElementById('forgot')
+    console.log('whaat')
+    if (container != null && forgot != null) {
+      container.classList.toggle('hidden')
+      forgot.classList.toggle('hidden')
+    }
+  }
+  
+
   return (
     <Box component="form"
             sx={{
@@ -50,7 +86,7 @@ const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} 
             noValidate
             autoComplete="off">
         <div className='flex flex-col items-start gap-6'>
-            <h3 className='text-2xl text-[#5c5c5c] w-full flex justify-start'>{title} Form</h3>
+            <h3 className='text-2xl text-[#5c5c5c] w-full flex justify-start'>{title}</h3>
             <TextField id='email' label='Email' variant='outlined' sx={{ width: '45ch' }} color='secondary' onChange={(e) => setEmail(e.target.value)} />
             <FormControl sx={{ width: '45ch' }} variant="outlined" color='secondary'>
               <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -78,6 +114,14 @@ const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} 
               <BasicButton text={sideTitle} handleClick={handleSide}/>
               <BasicButton text='Anonymous Sign In' handleClick={handleAnon} />
             </div>
+            <motion.button id='forgot' type='button' onClick={clickedForC} whileHover={{ scale: 1.05 }} className='w-full flex justify-center text-sm text-[#1a73e8]'>Forgot Password?</motion.button>
+            <motion.div animate={{transition: easeInOut}}  id='reset' className="hidden">
+                <div className='flex justify-center gap-4 my-4'>
+                  <motion.button type='button' onClick={clickedForC} whileHover={{ scale: 1.05 }} className='text-sm text-[#1a73e8]'>Cancel</motion.button>
+                  <TextField size='small' id='reset-input' label='Enter Email Used' variant='outlined' sx={{ width: '20ch' }} color='secondary' onChange={(e) => setResetEmail(e.target.value)}/>
+                  <Button type='button' onClick={handleForgot}>SEND RESET EMAIL</Button>
+                </div>
+            </motion.div>
             <OffSiteAuths />
         </div>
     </Box>

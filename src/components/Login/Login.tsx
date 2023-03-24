@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <div className='w-full flex md:flex-row flex-col-reverse items-center '>
-      <AuthorizingPages msg={'Welcome Back.'} bg={bg} user={user} setEmail={setEmail} setPassword={setPassword} handleFormSubmit={login} handleSide={signUp}/>
+      <AuthorizingPages msg={'Welcome Back.'} type={0} bg={bg} user={user} setEmail={setEmail} setPassword={setPassword} handleFormSubmit={login} handleSide={signUp}/>
       <ToastContainer />
     </div>
   )
