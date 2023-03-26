@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import PrimarySearchAppBar from '../common/HomeNav/HomeNav'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -18,7 +19,16 @@ const Home = () => {
     }, [])
 
   return (
-    <div>Home screen</div>
+    <div className='h-full relative bg-[#dae0e6]'>
+      <nav className="sticky top-0">
+        <PrimarySearchAppBar />
+      </nav>
+      <main className='h-full w-full flex justify-center items-start'>
+        <div className='bg-white w-[35rem] h-[90%] mt-6 mb-6'>
+          hi
+        </div>
+      </main>
+    </div>
   )
 }
 
