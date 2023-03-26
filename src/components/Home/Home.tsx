@@ -25,7 +25,7 @@ const Home = () => {
       </nav>
       <main className='h-full w-full flex justify-center items-start'>
         <div className='bg-white w-[35rem] h-[90%] mt-6 mb-6'>
-          hi
+          hello
         </div>
       </main>
     </div>
