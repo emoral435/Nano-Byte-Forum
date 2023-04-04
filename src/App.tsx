@@ -5,7 +5,6 @@ import Home from "./components/Home/Home"
 import Startup from "./components/Startup/Startup"
 import About from "./components/About/About"
 
-
 function App() {
 
   return (

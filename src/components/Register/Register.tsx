@@ -1,6 +1,4 @@
-import React from 'react'
-import Form from '../common/Form'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { app } from '../../firebase/firebase-config'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'

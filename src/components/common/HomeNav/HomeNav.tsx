@@ -18,14 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 
 
-const getUserImg = () => {
-  const auth = getAuth()
-  const user = auth.currentUser;
-  if (user != null) {
-    return user.photoURL
-  } else return null
-}
-
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -66,7 +58,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+interface Props {
+  imgUrl: string,
+}
+
+export default function PrimarySearchAppBar({imgUrl} : Props) {
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -161,7 +157,7 @@ export default function PrimarySearchAppBar() {
 
 
   return (
-    <Box sx={{ flexGrow: 1}} >
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -202,7 +198,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <motion.img src={getUserImg() || NanoLogo} className='w-12 h-12 rounded-full' whileHover={{scale: 1.1}}/>
+              {<motion.img src={imgUrl} className='w-12 h-12 rounded-full' whileHover={{scale: 1.1}}/>}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
