@@ -1,9 +1,10 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import PrimarySearchAppBar from '../common/HomeNav/HomeNav'
+import PrimarySearchAppBar from './HomeNav'
 import HomeContent from './HomeContent'
 import defaultProfile from '/src/assets/profileCircle.svg'
+import { getCurrentUser, useAuth } from '../../firebase/firebase-config'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -19,7 +20,10 @@ const Home = () => {
         } else {
             navigate('/login')
         }
-        const auth = getAuth()
+    }, [])
+
+    useEffect(() => {
+      const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
           if (user && user.photoURL) {
             setProfile(user.photoURL)

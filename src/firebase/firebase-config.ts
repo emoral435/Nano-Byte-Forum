@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { onAuthStateChanged, getAuth, updateProfile, User } from "firebase/auth";
 import { useState, useEffect } from "react";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,7 +32,45 @@ const actionCodeSettings = {
   dynamicLinkDomain: 'NanoByte.page.link'
 };
 
+const storage = getStorage()
+
+// storage function
+
+async function upload(file: any, currentUser: any, setLoading: any) {
+  const fileRef = ref(storage, currentUser.uid + '.png')
+
+  setLoading(true)
+ const snapshot = await uploadBytes(fileRef, file)
+
+ const photoURL = await getDownloadURL(fileRef)
+ updateProfile(currentUser, {photoURL})
+ setLoading(false)
+}
+
+function getCurrentUser(): any {
+  const auth = getAuth()
+  onAuthStateChanged(auth, (user) => {
+    return user
+  })
+}
+
+function useAuth() {
+  const [currentUser, setCurrentUser] = useState<any>();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user)
+    });
+    return unsub;
+  }, [])
+
+  return currentUser;
+}
+
 export {
     app,
     actionCodeSettings,
+    upload,
+    getCurrentUser,
+    useAuth
 }

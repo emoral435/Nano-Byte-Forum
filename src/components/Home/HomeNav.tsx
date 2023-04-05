@@ -16,6 +16,8 @@ import NanoLogo from '/src/assets/Nano_logo.png'
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
+import BasicModal from '../common/Modal';
+import ChangeProfile from './changeProfile';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -116,9 +118,10 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem >Profile</MenuItem>
-      <MenuItem >My account</MenuItem>
-      <MenuItem onClick={LogOut}>Logout</MenuItem>
+      <BasicModal text="Change Profile Picture" children={<ChangeProfile/>} />
+      <div className='flex flex-col justify-center items-center gap-2'>
+        <MenuItem onClick={LogOut}>Logout</MenuItem>
+      </div>
     </Menu>
   );
 
