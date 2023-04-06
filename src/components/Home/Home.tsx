@@ -32,8 +32,10 @@ const Home = () => {
     }, [])
 
   return (
-    <div className='h-screen flex flex-col bg-[#dae0e6]'>
-      <PrimarySearchAppBar imgUrl={profile}/>
+    <div className='h-screen flex flex-col bg-[#dae0e6] justify-start'>
+      <div>
+        <PrimarySearchAppBar imgUrl={profile}/>
+      </div>
       <HomeContent />
     </div>
   )
