@@ -4,6 +4,8 @@ import { getAnalytics } from "firebase/analytics";
 import { onAuthStateChanged, getAuth, updateProfile, User } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,7 +23,6 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth()
 const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
@@ -47,30 +48,14 @@ async function upload(file: any, currentUser: any, setLoading: any) {
  setLoading(false)
 }
 
-function getCurrentUser(): any {
-  const auth = getAuth()
-  onAuthStateChanged(auth, (user) => {
-    return user
-  })
-}
+const db = getFirestore(app)
 
-function useAuth() {
-  const [currentUser, setCurrentUser] = useState<any>();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-    });
-    return unsub;
-  }, [])
-
-  return currentUser;
-}
 
 export {
     app,
+    auth,
+    storage,
+    db,
     actionCodeSettings,
     upload,
-    getCurrentUser,
-    useAuth
 }

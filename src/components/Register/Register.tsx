@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { app } from '../../firebase/firebase-config'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import AuthorizingPages from '../common/AuthorizingPages'
 import user from '/src/assets/registerUser.svg'
 import bg from '/src/assets/registerBG.svg'
+import { storage, db, auth } from '../../firebase/firebase-config'
+import { ref } from 'firebase/storage'
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 const Register = () => {
     // NOTE this is different from logging in, where we most likely want every time a user goes to the register page to make a new account
@@ -14,13 +18,26 @@ const Register = () => {
     const navigate = useNavigate()
 
 
-    const register = async () => {
-      console.log('registering...')
+    const register = () => {
       const auth = getAuth(app)
       // NOTE This creates a single instance of a user - there can only be one instance per user email !
       createUserWithEmailAndPassword(auth, email, password)
-        .then((response) => {
-          window.sessionStorage.setItem('login token', response.user.uid)
+        .then( async (response) => {
+          const user = response.user
+          console.log(user)
+          window.sessionStorage.setItem('login token', user.uid)
+          const userUpdate = await updateProfile(auth.currentUser!, {
+            displayName: user.email?.substring(0, user.email.indexOf('@')),
+            photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+          })
+          const currUser = auth.currentUser
+          const storageRef = ref(storage, currUser!.uid)
+          await setDoc(doc(db, "users", currUser!.uid), {
+            uid: currUser!.uid,
+            displayName: currUser!.displayName,
+            email: currUser!.email,
+            photoURl: currUser!.photoURL
+          })
           navigate('/home')
         })
         // NOTE this will fail if the user already exists
