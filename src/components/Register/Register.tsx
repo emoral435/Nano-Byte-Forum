@@ -38,6 +38,8 @@ const Register = () => {
             email: currUser!.email,
             photoURl: currUser!.photoURL
           })
+
+          await setDoc(doc(db, 'userChats', currUser!.uid), {})
           navigate('/home')
         })
         // NOTE this will fail if the user already exists

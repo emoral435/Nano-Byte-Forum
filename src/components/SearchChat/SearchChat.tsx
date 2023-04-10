@@ -2,6 +2,9 @@
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
+import { collection, query, where, getDocs, DocumentData } from "firebase/firestore";
+import { db } from '../../firebase/firebase-config';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,8 +48,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const SearchInput = () => {
+  const [username, setUsername] = useState("")
+  const [user, setUser] = useState<DocumentData | null>(null)
+  const [err, setErr] = useState(false)
+
+  const handleSearch = async () => {
+    const q = query(
+      collection(db, "users"),
+      where("displayName", "==", username)
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setUser(doc.data());
+        setTimeout(() => {console.log(user)}, 5000);
+      });
+    } catch (err) {
+      setErr(true);
+    }
+  };
+
+  const handleKey = (e: any) => {
+    e.code === "Enter" && handleSearch()
+  }
+
   return (  
-    <div>
+      <div className='flex flex-col gap-4'>
         <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -54,16 +82,26 @@ const SearchInput = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onKeyDown={handleKey}
+              onChange={(e) => setUsername(e.target.value)}
             />
         </Search>
-    </div>
+        {err && <span>User not found.</span>}
+      {user &&  
+        <div className='flex justify-center items-center gap-4'>
+          <img src={user.photoURL} alt="" />
+          <div>{user.displayName}</div>
+        </div>}
+      </div>
   )
 }
 
 const SearchChat = () => {
   return (
-    <div>
+    <div className='h-full w-full p-4 flex flex-col gap-4'>
       <SearchInput />
+      
+      <div className='border border-white'></div>
     </div>
   )
 }

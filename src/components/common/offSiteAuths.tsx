@@ -1,20 +1,36 @@
 import BasicButton from "./Button"
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, GithubAuthProvider, User } from 'firebase/auth';
+import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, GithubAuthProvider, updateProfile } from 'firebase/auth';
+import { ref } from "firebase/storage";
+import { setDoc, doc } from "firebase/firestore";
 import Button from '@mui/material/Button'
 import { useNavigate } from "react-router-dom";
-import { app } from "../../firebase/firebase-config";
+import { app, auth, storage, db } from "../../firebase/firebase-config";
 
 
 
 const OffSiteAuths = () => {
     const navigate = useNavigate()
     
-    const success = (type: string) => {
+    const success = async (type: string, response: any) => {
         sessionStorage.setItem('login token', type + ' token')
-        console.log("success")
-        navigate('/home')
+        const user = response.user
+        const userUpdate = await updateProfile(auth.currentUser!, {
+            displayName: user.email?.substring(0, user.email.indexOf('@')),
+            photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+        })
+        const currUser = auth.currentUser
+        const storageRef = ref(storage, currUser!.uid)
+        await setDoc(doc(db, "users", currUser!.uid), {
+            uid: currUser!.uid,
+            displayName: currUser!.displayName,
+            email: currUser!.email,
+            photoURl: currUser!.photoURL
+        })
+
+        const wait = await setDoc(doc(db, 'userChats', currUser!.uid), {})
+        
     }
     
     const handleGoogleAuth = () => {
@@ -33,7 +49,9 @@ const OffSiteAuths = () => {
         getRedirectResult(auth)
             .then((result: any) => {
                 console.log(result)
-                success(type)
+                success(type, result)
+                console.log("success")
+                navigate('/home')
             }).catch((err) => { 
                 console.log(err.code)
             })

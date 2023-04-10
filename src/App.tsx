@@ -4,10 +4,13 @@ import Register from "./components/Register/Register"
 import Home from "./components/Home/Home"
 import Startup from "./components/Startup/Startup"
 import About from "./components/About/About"
-import AuthContextProvider from './context/AuthContext'
+import { useContext } from "react"
+import { AuthContext } from "./context/AuthContext"
 
 function App() {
 
+  const {currentUser} = useContext(AuthContext)
+  console.log(currentUser)
   return (
     <BrowserRouter>
         <Routes>

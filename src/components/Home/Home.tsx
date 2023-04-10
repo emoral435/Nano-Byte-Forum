@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import PrimarySearchAppBar from './HomeNav'
 import HomeContent from './HomeContent'
 import defaultProfile from '/src/assets/profileCircle.svg'
-import { getCurrentUser, useAuth } from '../../firebase/firebase-config'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -15,10 +14,8 @@ const Home = () => {
 
     useEffect(() => { // NOTE check if the user is logged in, else kick them back to the login screen
         let storage = sessionStorage.getItem('login token')
-        if (storage) {
-            navigate('/home')
-        } else {
-            navigate('/login')
+        if (!storage) {
+          navigate('/login')
         }
     }, [])
 
