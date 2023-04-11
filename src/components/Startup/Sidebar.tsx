@@ -6,7 +6,6 @@ import BasicButton from "../common/Button";
 const links = [
     { name: "Login", to: "/login", id: 1},
     {name: "Sign Up", to: "/register", id: 2,},
-    {name: "About Us", to: "/About", id: 3}
 ]
 
 const itemVariants = {

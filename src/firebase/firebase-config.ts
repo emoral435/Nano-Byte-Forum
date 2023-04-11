@@ -19,7 +19,8 @@ const firebaseConfig = {
   storageBucket: "nano-byte-media.appspot.com",
   messagingSenderId: "129740957204",
   appId: "1:129740957204:web:7fa1a1bad3307a8155a901",
-  measurementId: "G-1KWF5P2FYF"
+  measurementId: "G-1KWF5P2FYF",
+  databaseURL: "https://nano-byte-media-default-rtdb.firebaseio.com/"
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -37,7 +37,6 @@ const StartupNav = () => {
             <div className='gap-4 mr-4 md:flex hidden'>
                 <BasicButton text="Login" handleClick={() => handleClick('/login')} />
                 <BasicButton text="Sign Up" handleClick={() => handleClick('/register')} />
-                <BasicButton text="About Us" handleClick={() => handleClick('/about')} />
             </div>
             <div className='flex justify-center items-center md:hidden'>
                 <SideBar open={open}/>

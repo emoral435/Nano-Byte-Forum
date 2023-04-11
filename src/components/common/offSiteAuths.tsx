@@ -29,7 +29,7 @@ const OffSiteAuths = () => {
             photoURl: currUser!.photoURL
         })
 
-        const wait = await setDoc(doc(db, 'userChats', currUser!.uid), {})
+        await setDoc(doc(db, 'userChats', currUser!.uid), {})
         
     }
     
@@ -45,6 +45,7 @@ const OffSiteAuths = () => {
         console.log(type)
         const provider = (type == 'github') ? new GithubAuthProvider : new GoogleAuthProvider
         const auth = getAuth();
+        localStorage.setItem("haha", JSON.stringify(auth.currentUser))
         signInWithRedirect(auth, provider)
         getRedirectResult(auth)
             .then((result: any) => {

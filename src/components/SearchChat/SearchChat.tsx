@@ -62,7 +62,6 @@ const SearchInput = () => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         setUser(doc.data());
-        setTimeout(() => {console.log(user)}, 5000);
       });
     } catch (err) {
       setErr(true);
@@ -70,8 +69,8 @@ const SearchInput = () => {
   };
 
   const handleKey = (e: any) => {
-    e.code === "Enter" && handleSearch()
-  }
+    e.code === "Enter" && handleSearch();
+  };
 
   return (  
       <div className='flex flex-col gap-4'>
@@ -89,8 +88,8 @@ const SearchInput = () => {
         {err && <span>User not found.</span>}
       {user &&  
         <div className='flex justify-center items-center gap-4'>
-          <img src={user.photoURL} alt="" />
-          <div>{user.displayName}</div>
+          <img src={user.photoURL} alt=""/>
+          <div onClick={() => console.log(user.photoURL)}>{user.displayName}</div>
         </div>}
       </div>
   )
