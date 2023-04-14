@@ -36,7 +36,7 @@ const Register = () => {
             uid: currUser!.uid,
             displayName: currUser!.displayName,
             email: currUser!.email,
-            photoURl: currUser!.photoURL
+            photoURL: currUser!.photoURL
           })
 
           await setDoc(doc(db, 'userChats', currUser!.uid), {})

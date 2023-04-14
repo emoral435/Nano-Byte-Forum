@@ -20,11 +20,12 @@ const ChangeProfile = () => {
 
     const handleUpload = () => {
         const auth = getAuth()
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
           if (user && photo) {
             upload(photo, user, setLoading)
             console.log(user.uid)
-            setDoc(doc(db, "users", user!.uid), {
+            sessionStorage.setItem("stored photo", JSON.stringify(user))
+            await setDoc(doc(db, "users", user!.uid), {
               uid: user!.uid,
               displayName: user!.displayName,
               email: user!.email,

@@ -64,12 +64,17 @@ const SearchInput = () => {
         setUser(doc.data());
       });
     } catch (err) {
+      setUser(null);
       setErr(true);
     }
   };
 
   const handleKey = (e: any) => {
-    e.code === "Enter" && handleSearch();
+    if (username == "") {
+      setUser(null);
+    } else {
+      e.code === "Enter" && handleSearch();
+    }
   };
 
   return (  
@@ -83,14 +88,15 @@ const SearchInput = () => {
               inputProps={{ 'aria-label': 'search' }}
               onKeyDown={handleKey}
               onChange={(e) => setUsername(e.target.value)}
+              sx={{width: "100%"}}
             />
         </Search>
         {err && <span>User not found.</span>}
-      {user &&  
-        <div className='flex justify-center items-center gap-4'>
-          <img src={user.photoURL} alt=""/>
-          <div onClick={() => console.log(user.photoURL)}>{user.displayName}</div>
-        </div>}
+        {user &&  
+          <div className='flex justify-center items-center gap-4 mt-0.5 h-full w-full'>
+            <div>{user.displayName}</div>
+            <img src={user.photoURL} alt="" className='w-20 h-20 rounded-full'/>
+          </div>}
       </div>
   )
 }

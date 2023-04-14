@@ -21,11 +21,11 @@ const Home = () => {
 
     useEffect(() => {
       const auth = getAuth()
-        onAuthStateChanged(auth, (user) => {
-          if (user && user.photoURL) {
-            setProfile(user.photoURL)
-          }
-        })
+      onAuthStateChanged(auth, (user) => {
+        if (user && user.photoURL) {
+          setProfile(user.photoURL)
+        }
+      })
     }, [])
 
   return (

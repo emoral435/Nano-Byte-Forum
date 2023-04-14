@@ -9,13 +9,14 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import NanoLogo from '/src/assets/Nano_logo.png'
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 import BasicModal from '../common/Modal';
 import ChangeProfile from './changeProfile';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { auth } from '../../firebase/firebase-config';
 
 interface Props {
   imgUrl: string,
@@ -26,6 +27,7 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+  const [username, setUsername] = React.useState<null | string>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -115,6 +117,11 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
   );
 
   const {currentUser} = useContext(AuthContext)
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUsername(user?.displayName!)
+      })
+    }, [])
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -132,14 +139,14 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Typography
+          {username && <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ justifyItems: 'center', alignItems: 'center', gap: 2}}
+              sx={{ justifyItems: 'center', alignItems: 'center', marginRight: "1rem"}}
               className='flex'
-            >
-            </Typography>
+            >{username}
+            </Typography>}
             <IconButton
               size="large"
               edge="end"
