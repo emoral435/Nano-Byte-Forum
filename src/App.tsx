@@ -10,7 +10,6 @@ import { AuthContext } from "./context/AuthContext"
 function App() {
 
   const {currentUser} = useContext(AuthContext)
-  console.log(currentUser)
   return (
     <BrowserRouter>
         <Routes>

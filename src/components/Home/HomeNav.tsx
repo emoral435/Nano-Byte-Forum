@@ -17,6 +17,7 @@ import ChangeProfile from './changeProfile';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { auth } from '../../firebase/firebase-config';
+import { ProfileContext } from '../../context/ProfileContext';
 
 interface Props {
   imgUrl: string,
@@ -116,12 +117,13 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
     </Menu>
   );
 
-  const {currentUser} = useContext(AuthContext)
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUsername(user?.displayName!)
       })
     }, [])
+
+  const [user, setUser] = useContext(ProfileContext)
 
   return (
     <Box sx={{ flexGrow: 1}}>
@@ -156,7 +158,7 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              {<motion.img src={imgUrl} className='w-12 h-12 rounded-full' whileHover={{scale: 1.1}}/>}
+              {<motion.img src={user!} className='w-12 h-12 rounded-full' whileHover={{scale: 1.1}}/>}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

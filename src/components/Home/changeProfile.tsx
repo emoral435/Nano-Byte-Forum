@@ -7,10 +7,14 @@ import { ToastContainer, toast } from 'react-toastify'
 import { ref, set, getDatabase } from "firebase/database";
 import { collection, doc, setDoc } from "firebase/firestore"
 import { db } from "../../firebase/firebase-config"
+import { useContext } from "react"
+import { ProfileContext } from "../../context/ProfileContext"
 
 const ChangeProfile = () => {
     const [photo, setPhoto] = useState(null)
     const [loading, setLoading] = useState(false)
+
+    const [user, setUser] = useContext(ProfileContext)
 
     const handleInput = (e: any) => {
        if ( e.target.files[0]) {
@@ -23,18 +27,19 @@ const ChangeProfile = () => {
         onAuthStateChanged(auth, async (user) => {
           if (user && photo) {
             upload(photo, user, setLoading)
-            console.log(user.uid)
-            sessionStorage.setItem("stored photo", JSON.stringify(user))
+            console.log(user.photoURL)
             await setDoc(doc(db, "users", user!.uid), {
               uid: user!.uid,
               displayName: user!.displayName,
               email: user!.email,
-              photoURl: user!.photoURL
+              photoURL: user!.photoURL
             })
+            setUser(user.photoURL)
             toast.info(`Upload Completed, please refresh if you want to see changes.`)
           } 
         })
     }
+
   return (
 
     <div className="flex flex-col justify-center items-center gap-8">

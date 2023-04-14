@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import PrimarySearchAppBar from './HomeNav'
 import HomeContent from './HomeContent'
 import defaultProfile from '/src/assets/profileCircle.svg'
+import { ProfileProvider } from '../../context/ProfileContext'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -29,12 +30,14 @@ const Home = () => {
     }, [])
 
   return (
-    <div className='h-screen flex flex-col bg-[#dae0e6] justify-start'>
-      <div>
-        <PrimarySearchAppBar imgUrl={profile}/>
+    <ProfileProvider>
+      <div className='h-screen flex flex-col bg-[#dae0e6] justify-start'>
+        <div>
+          <PrimarySearchAppBar imgUrl={profile}/>
+        </div>
+        <HomeContent />
       </div>
-      <HomeContent />
-    </div>
+    </ProfileProvider>
   )
 }
 

@@ -57,16 +57,17 @@ const SearchInput = () => {
       collection(db, "users"),
       where("displayName", "==", username)
     );
-
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-      });
-    } catch (err) {
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
       setUser(null);
       setErr(true);
+    } else {
+      querySnapshot.forEach((doc) => {
+        setErr(false)
+        setUser(doc.data());
+      })
     }
+    
   };
 
   const handleKey = (e: any) => {
@@ -91,7 +92,7 @@ const SearchInput = () => {
               sx={{width: "100%"}}
             />
         </Search>
-        {err && <span>User not found.</span>}
+        {err && <span className='flex justify-center'>User not found. Use email or display name.</span>}
         {user &&  
           <div className='flex justify-center items-center gap-4 mt-0.5 h-full w-full'>
             <div>{user.displayName}</div>
