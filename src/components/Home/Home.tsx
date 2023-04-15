@@ -1,10 +1,12 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PrimarySearchAppBar from './HomeNav'
 import HomeContent from './HomeContent'
 import defaultProfile from '/src/assets/profileCircle.svg'
 import { ProfileProvider } from '../../context/ProfileContext'
+import { auth, db } from '../../firebase/firebase-config'
+import { setDoc, doc } from 'firebase/firestore'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -18,6 +20,23 @@ const Home = () => {
         if (!storage) {
           navigate('/login')
         }
+        async () => {
+          const userUpdate = await updateProfile(auth.currentUser!, {
+            displayName: auth.currentUser!.email?.substring(0, auth.currentUser!.email.indexOf('@')),
+            photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+          })
+        }
+        const unsub = onAuthStateChanged(auth, async (user) => {
+          await setDoc(doc(db, "users", user!.uid), {
+            uid: user!.uid,
+            displayName: user!.displayName,
+            email: user!.email,
+            photoURL: user!.photoURL
+          })
+          const chatLogRef = doc(db, 'userChats', user!.uid)
+          await setDoc(chatLogRef, {}, {merge: true})
+        })
+        return unsub()
     }, [])
 
     useEffect(() => {

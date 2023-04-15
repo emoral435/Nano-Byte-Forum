@@ -24,20 +24,18 @@ const Register = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then( async (response) => {
           const user = response.user
-          console.log(user)
           window.sessionStorage.setItem('login token', user.uid)
           const userUpdate = await updateProfile(auth.currentUser!, {
             displayName: user.email?.substring(0, user.email.indexOf('@')),
             photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
           })
           const currUser = auth.currentUser
-          const storageRef = ref(storage, currUser!.uid)
-          await setDoc(doc(db, "users", currUser!.uid), {
-            uid: currUser!.uid,
-            displayName: currUser!.displayName,
-            email: currUser!.email,
-            photoURL: currUser!.photoURL
-          })
+          // await setDoc(doc(db, "users", currUser!.uid), {
+          //   uid: currUser!.uid,
+          //   displayName: currUser!.displayName,
+          //   email: currUser!.email,
+          //   photoURL: currUser!.photoURL
+          // })
 
           await setDoc(doc(db, 'userChats', currUser!.uid), {})
           navigate('/home')

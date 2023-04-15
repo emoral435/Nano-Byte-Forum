@@ -21,16 +21,15 @@ const OffSiteAuths = () => {
             photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
         })
         const currUser = auth.currentUser
-        const storageRef = ref(storage, currUser!.uid)
-        await setDoc(doc(db, "users", currUser!.uid), {
-            uid: currUser!.uid,
-            displayName: currUser!.displayName,
-            email: currUser!.email,
-            photoURL: currUser!.photoURL
-        })
+        sessionStorage.setItem("offsite token", currUser!.uid)
+        // await setDoc(doc(db, "users", currUser!.uid), {
+        //     uid: currUser!.uid,
+        //     displayName: currUser!.displayName,
+        //     email: currUser!.email,
+        //     photoURL: currUser!.photoURL
+        // })
 
         await setDoc(doc(db, 'userChats', currUser!.uid), {})
-        
     }
     
     const handleGoogleAuth = () => {

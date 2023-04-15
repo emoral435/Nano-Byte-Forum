@@ -3,8 +3,11 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import { collection, query, where, getDocs, DocumentData } from "firebase/firestore";
+import { collection, query, where, getDoc, getDocs, DocumentData, doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../../firebase/firebase-config';
+import { auth } from '../../firebase/firebase-config';
+import { onAuthStateChanged } from 'firebase/auth';
+import AllChats from '../AllChats/AllChats';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +55,7 @@ const SearchInput = () => {
   const [user, setUser] = useState<DocumentData | null>(null)
   const [err, setErr] = useState(false)
 
+
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
@@ -77,6 +81,40 @@ const SearchInput = () => {
       e.code === "Enter" && handleSearch();
     }
   };
+  
+  const handleSelect = async () => {
+    // check if the chat between the user and the selected user is already made, else create a new one
+    onAuthStateChanged(auth, async (currentUser) => {
+      const combinedId = currentUser!.uid > user!.uid 
+        ? currentUser!.uid + user!.uid 
+        : user!.uid + currentUser!.uid;
+      const res = await getDoc(doc(db, "chats", combinedId))
+      if (!res.exists()) {
+        //create a chat in chats collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+        //create user chats
+        await updateDoc(doc(db, "userChats", currentUser!.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: user!.uid,
+            displayName: user!.displayName,
+            photoURL: user!.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", user!.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser!.uid,
+            displayName: currentUser!.displayName,
+            photoURL: currentUser!.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+      }
+      setUser(null)
+      setUsername("")
+    })
+  }
 
   return (  
       <div className='flex flex-col gap-4'>
@@ -89,12 +127,13 @@ const SearchInput = () => {
               inputProps={{ 'aria-label': 'search' }}
               onKeyDown={handleKey}
               onChange={(e) => setUsername(e.target.value)}
+              value={username}
               sx={{width: "100%"}}
             />
         </Search>
-        {err && <span className='flex justify-center'>User not found. Use email or display name.</span>}
+        {err && <span className='flex justify-center w-full h-full p-2'>User not found. Use email or display name.</span>}
         {user &&  
-          <div className='flex justify-center items-center gap-4 mt-0.5 h-full w-full'>
+          <div className='flex justify-center items-center gap-4 mt-0.5 h-full w-full p-2 hover:bg-[#4c646e]' onClick={handleSelect}>
             <div>{user.displayName}</div>
             <img src={user.photoURL} alt="" className='w-20 h-20 rounded-full'/>
           </div>}
@@ -106,8 +145,8 @@ const SearchChat = () => {
   return (
     <div className='h-full w-full p-4 flex flex-col gap-4'>
       <SearchInput />
-      
       <div className='border border-white'></div>
+      <AllChats />
     </div>
   )
 }

@@ -4,8 +4,7 @@ import { upload } from "../../firebase/firebase-config"
 import { motion } from "framer-motion"
 import uploadImg from '/src/assets/upload.svg'
 import { ToastContainer, toast } from 'react-toastify'
-import { ref, set, getDatabase } from "firebase/database";
-import { collection, doc, setDoc } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"
 import { db } from "../../firebase/firebase-config"
 import { useContext } from "react"
 import { ProfileContext } from "../../context/ProfileContext"
