@@ -13,6 +13,7 @@ const AllChats = () => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
                 setChats(doc.data())
+                console.log(chats)
             });
     
             return () => {
@@ -29,7 +30,7 @@ const AllChats = () => {
     <div className="flex flex-col justify-center items-center gap-2">
         <div>All Chats</div>
         {Object.entries(chats)?.map((chat): any => {
-            <motion.div whileHover={{scale: 1.2}} className="flex w-full justify-start gap-2" key={chat[0]}>
+            <motion.div whileHover={{scale: 1.2}} className="flex w-full justify-start gap-2" key={chat[0]} onClick={console.log(chat[1])}>
                 <motion.img src={chat[1].userInfo.photoURL}></motion.img>
                 <div className="flex">
                     <div>{chat[1].userInfo.displayName}</div>
@@ -37,6 +38,7 @@ const AllChats = () => {
                 </div>
             </motion.div>
         })}
+        <div>what</div>
     </div>
   )
 }
