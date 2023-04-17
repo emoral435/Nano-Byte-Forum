@@ -30,12 +30,6 @@ const Register = () => {
             photoURL: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
           })
           const currUser = auth.currentUser
-          // await setDoc(doc(db, "users", currUser!.uid), {
-          //   uid: currUser!.uid,
-          //   displayName: currUser!.displayName,
-          //   email: currUser!.email,
-          //   photoURL: currUser!.photoURL
-          // })
 
           await setDoc(doc(db, 'userChats', currUser!.uid), {})
           navigate('/home')
