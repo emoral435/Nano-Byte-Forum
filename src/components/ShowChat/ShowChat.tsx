@@ -13,7 +13,7 @@ const ShowChat = () => {
       <header className="basis-[10%] bg-[#78909b] text-2xl text-white flex justify-center items-center">
         {data.user?.displayName}
       </header>
-      <div className="basis-[80%] overflow-scroll scroll-m-1 bg-[#cccccc] ">
+      <div className="md:basis-[80%] md:h-full h-[60vh] overflow-scroll scroll-m-1 bg-[#cccccc] ">
         <Messages />
       </div>
       <ChatInput />

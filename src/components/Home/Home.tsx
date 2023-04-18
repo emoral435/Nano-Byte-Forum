@@ -50,7 +50,7 @@ const Home = () => {
 
   return (
     <ProfileProvider>
-      <div className='h-screen flex flex-col bg-[#dae0e6] justify-start'>
+      <div className='h-[100%] flex flex-col bg-[#dae0e6] justify-start'>
         <div>
           <PrimarySearchAppBar imgUrl={profile}/>
         </div>
