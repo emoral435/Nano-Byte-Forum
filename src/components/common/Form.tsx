@@ -78,6 +78,11 @@ const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} 
   }
   
 
+  const handleSubmit = (e: any) => {
+    if (e.code === "Enter") {
+      handleForm()
+    }
+  }
   return (
     <Box component="form"
             sx={{
@@ -89,8 +94,9 @@ const Form = ({title, sideTitle, handleForm, handleSide, setEmail, setPassword} 
             <h3 className='text-2xl text-[#5c5c5c] w-full flex justify-start'>{title}</h3>
             <TextField id='email' label='Email' variant='outlined' sx={{ width: '45ch' }} color='secondary' onChange={(e) => setEmail(e.target.value)} />
             <FormControl sx={{ width: '45ch' }} variant="outlined" color='secondary'>
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password" >Password</InputLabel>
               <OutlinedInput
+                onKeyDown={handleSubmit}
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 endAdornment={

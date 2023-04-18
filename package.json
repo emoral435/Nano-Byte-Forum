@@ -11,6 +11,7 @@
   "dependencies": {
     "@mui/icons-material": "^5.11.11",
     "@reduxjs/toolkit": "^1.9.3",
+    "date-fns": "^2.29.3",
     "firebase": "^9.17.2",
     "framer-motion": "^10.1.0",
     "react": "^18.2.0",

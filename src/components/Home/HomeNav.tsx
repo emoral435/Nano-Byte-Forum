@@ -54,8 +54,8 @@ export default function PrimarySearchAppBar({imgUrl} : Props) {
     const auth = getAuth()
     signOut(auth)
         .then(() => {
-            navigate('/login')
-            sessionStorage.removeItem('login token')
+          sessionStorage.removeItem('login token')
+          navigate('/login')
         }).catch( (err) => {
             console.log(err.code)
         })

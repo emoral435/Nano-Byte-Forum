@@ -9,11 +9,13 @@ const ShowChat = () => {
   const { data } = useContext(ChatContext);
 
   return (
-    <div className="flex flex-col">
-      <header className=" min-h-[4.55rem] bg-[#78909b]">
+    <div className="flex flex-col h-full">
+      <header className="basis-[10%] bg-[#78909b] text-2xl text-white flex justify-center items-center">
         {data.user?.displayName}
       </header>
-      <Messages />
+      <div className="basis-[80%] overflow-scroll scroll-m-1 bg-[#cccccc] ">
+        <Messages />
+      </div>
       <ChatInput />
     </div>
   )

@@ -15,7 +15,6 @@ const AllChats = () => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
                 setChats(doc.data())
-                setTimeout(() => console.log(chats), 10)
             });
     
             return () => {
@@ -26,7 +25,6 @@ const AllChats = () => {
         currentUser.uid && getChats()
     }, [currentUser.uid])
 
-    console.log(Object.entries(chats))
 
     const handleSelect = (u:any) => {
         dispatch({ type: "CHANGE_USER", payload: u });
@@ -35,13 +33,14 @@ const AllChats = () => {
   return (
     <div className="flex flex-col justify-around items-center gap-8">
         <div>All Chats</div>
-        {Object.entries(chats)?.map((chat) :any => (
-            <motion.div className="flex w-full justify-center gap-8 hover:bg-[#4c646e] py-4" key={chat[0]}
+        {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat) :any => (
+            <motion.div className="flex w-full justify-center gap-8 hover:bg-[#4c646e] hover:rounded-md py-4" key={chat[0]}
              onClick={() => handleSelect(chat[1].userInfo)}>
-                <motion.img src={chat[1].userInfo.photoURL} className="rounded-full"></motion.img>
-                <div className="flex justify-center items-center">
+                {chat[1].userInfo.photoURL && <motion.img src={chat[1].userInfo.photoURL} className="rounded-full"></motion.img>}
+                <div className="flex flex-col justify-center items-center">
                     <div>{chat[1].userInfo.displayName}</div>
-                    <div>{chat[1].userInfo.lastMessage?.text}</div>
+                    {chat[1].lastMessage?.text.length > 20 && <div>Click Me</div>}
+                    {chat[1].lastMessage?.text.length < 20 && <div>{chat[1].lastMessage?.text}</div>}
                 </div>
             </motion.div>
         ))}
