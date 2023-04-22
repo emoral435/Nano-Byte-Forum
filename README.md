@@ -10,7 +10,7 @@
   <p align="center">
     A new way to communicate about questions that you have for people who have been in the same spot as you!
     <br />
-     Whether it be about technology—our largest community—or have burning questions about other matters. Ask away!
+     Whether it be about technology—our largest community—or have burning questions about other matters. Ask the top proffessionals!
     <br />
     <br />
   </p>
@@ -43,10 +43,10 @@
 ## About The Project
 
 <span style="display: flex; justify-content: space-around;">
-<!-- <img src="/src/assets/ssHome.png" alt="Logo" width="450"> // Home Page
-<img src="/src/assets/ssCart.png" alt="Logo" width="450"> // Cart
-<img src="/src/assets/ssFrog.png" alt="Logo" width="450"> // Frog!
-<img src="/src/assets/ssShop.png" alt="Logo" width="450"> // Shop -->
+<img src="https://emoral435.github.io/images-repo/NanoByteHome.png" alt="Logo" width="450"> // Home Page
+<img src="https://emoral435.github.io/images-repo/NanoByteChat.png" alt="Logo" width="450"> // Chat Page
+<img src="https://emoral435.github.io/images-repo/NanoByteLogin.png" alt="Logo" width="450"> // Login Page
+<img src="https://emoral435.github.io/images-repo/NanoByteMobile.png" alt="Logo" width="450"> // Mobile Styling
 </span>
 
 Here's what you can find:
@@ -79,7 +79,7 @@ To get a local copy up and running follow these simple example steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/omar-labana/read-track.git
+   git clone https://github.com/emoral435/Nano-Byte-Media.git
    ```
 2. Install NPM packages
    ```sh
@@ -102,4 +102,4 @@ To get a local copy up and running follow these simple example steps.
 
 Eduardo Morales - [@emSWE](https://www.linkedin.com/in/emSWE/) - emoral435@gmail.com
 <br/>
-I like to make fun things, and then break them
+I like to make fun things, with a passion for learning new things
