@@ -43,10 +43,14 @@
 ## About The Project
 
 <span style="display: flex; justify-content: space-around;">
-<img src="https://emoral435.github.io/images-repo/NanoByteHome.png" alt="Logo" width="450"> // Home Page
-<img src="https://emoral435.github.io/images-repo/NanoByteChat.png" alt="Logo" width="450"> // Chat Page
-<img src="https://emoral435.github.io/images-repo/NanoByteLogin.png" alt="Logo" width="450"> // Login Page
-<img src="https://emoral435.github.io/images-repo/NanoByteMobile.png" alt="Logo" width="450"> // Mobile Styling
+  <h3>Home Page</h3>
+  <img src="https://emoral435.github.io/images-repo/NanoByteHome.png" alt="Logo" width="450">
+  <h3>Chat Page</h3>
+  <img src="https://emoral435.github.io/images-repo/NanoByteChat.png" alt="Logo" width="450">
+  <h3>Login Page</h3>
+  <img src="https://emoral435.github.io/images-repo/NanoByteLogin.png" alt="Logo" width="450">
+  <h3>Mobile Composition / Layout</h3>
+  <img src="https://emoral435.github.io/images-repo/NanoByteMobile.png" alt="Logo" width="450">
 </span>
 
 Here's what you can find:
